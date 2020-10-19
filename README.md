@@ -15,6 +15,12 @@
 | month        | integer | null: false |
 | day          | integer | null: false |
 
+### Association
+
+- has_many :items
+- has_many :comment
+- has_many :buys
+
 
 ## items テーブル
 
@@ -29,6 +35,12 @@
 | shipping_day | string     | null: false                    |
 | price        | integer    | null: false                    |
 | user         | references | null: false, foreign_key: true |
+
+### Association
+
+- has_many :comment
+- has_many :buy
+
 
 ## comments テーブル
 
