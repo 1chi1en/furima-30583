@@ -19,7 +19,7 @@
 
 - has_many :items
 - has_many :comment
-- has_many :buys
+- belongs_to :buys
 
 
 ## items テーブル
@@ -40,6 +40,7 @@
 
 - has_many :comment
 - has_many :buy
+- belongs_to :user
 
 
 ## comments テーブル
@@ -50,6 +51,12 @@
 | item      | references | null: false, foreign_key: true |
 | user      | references | null: false, foreign_key: true |
 
+### Association
+
+- belongs_to :user
+- belongs_to :item
+- belongs_to :buy
+
 ## buys テーブル
 
 | Column     | Type       | Options                        |
@@ -57,3 +64,9 @@
 | address    | string     | null: false                    |
 | item       | references | null: false, foreign_key: true |
 | user       | references | null: false, foreign_key: true |
+
+### Association
+
+- has_many :user
+- has_one :item
+- has_many :comment
