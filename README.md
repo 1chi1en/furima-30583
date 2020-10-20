@@ -2,18 +2,16 @@
 
 ## users テーブル
 
-| Column       | Type    | Options     |
-| ------------ | ------- | ----------- |
-| nickname     | string  | null: false |
-| email        | string  | null: false |
-| password     | string  | null: false |
-| last_name    | string  | null: false |
-| first_name   | string  | null: false |
-| k_last_name  | string  | null: false |
-| k_first_name | string  | null: false |
-| year         | integer | null: false |
-| month        | integer | null: false |
-| day          | integer | null: false |
+| Column          | Type    | Options     |
+| --------------- | ------- | ----------- |
+| nickname        | string  | null: false |
+| email           | string  | null: false |
+| password        | string  | null: false |
+| last_name       | string  | null: false |
+| first_name      | string  | null: false |
+| kana_last_name  | string  | null: false |
+| kana_first_name | string  | null: false |
+| birth           | date    | null: false |
 
 ### Association
 
@@ -26,13 +24,13 @@
 
 | Column       | Type       | Options                        |
 | ------------ | ---------- | ------------------------------ |
-| title        | string     | null: false                    |
-| details      | string     | null: false                    |
-| category     | string     | null: false                    |
-| condition    | string     | null: false                    |
-| shipping     | string     | null: false                    |
-| area         | string     | null: false                    |
-| shipping_day | string     | null: false                    |
+| title        | text       | null: false                    |
+| details      | text       | null: false                    |
+| category     | integer    | null: false                    |
+| condition    | integer    | null: false                    |
+| shipping     | integer    | null: false                    |
+| area         | integer    | null: false                    |
+| shipping_day | integer    | null: false                    |
 | price        | integer    | null: false                    |
 | user         | references | null: false, foreign_key: true |
 
