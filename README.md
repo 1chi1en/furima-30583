@@ -55,11 +55,16 @@
 - belongs_to :item
 - belongs_to :buy
 
-## buys テーブル
+## buyers テーブル
 
 | Column     | Type       | Options                        |
 | ---------- | ---------- | ------------------------------ |
+| post       | integer    | null: false                    |
+| pref       | integer    | null: false                    |
+| town       | string     | null: false                    |
 | address    | string     | null: false                    |
+| residence  | text       | null: false                    |
+| phone      | integer    | null: false                    |
 | item       | references | null: false, foreign_key: true |
 | user       | references | null: false, foreign_key: true |
 
