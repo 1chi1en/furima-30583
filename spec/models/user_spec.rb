@@ -62,15 +62,59 @@ RSpec.describe User, type: :model do
   end
 
   describe '本人情報確認' do
-    it "本名欄は名字と名前が未入力だと登録できない" do
+    it "本名欄はlast_nameが未入力だと登録できない" do
+      user = FactoryBot.build(:user)
+      user.last_name = ""
+      user.valid?
+      expect(user.errors.full_messages).to include("Last name can't be blank")
     end
-    it "本名欄は漢字、全角かな/カナで入力されていないと登録できない" do
+    it "本名欄はfirst_nameが未入力だと登録できない" do
+      user = FactoryBot.build(:user)
+      user.first_name = ""
+      user.valid?
+      expect(user.errors.full_messages).to include("First name can't be blank")
     end
-    it "本名欄のフリガナは名字と名前が未入力だと登録できない" do
+    it "本名欄はlast_nameが漢字、全角かな/カナで入力されていないと登録できない" do
+      user = FactoryBot.build(:user)
+      user.last_name = "aa11"
+      user.valid?
+      expect(user.errors.full_messages).to include("Last name is invalid")
     end
-    it "本名欄のフリガナは全角カナでの入力でないと登録できない" do
+    it "本名欄はfirst_nameが漢字、全角かな/カナで入力されていないと登録できない" do
+      user = FactoryBot.build(:user)
+      user.first_name = "aa11"
+      user.valid?
+      expect(user.errors.full_messages).to include("First name is invalid")
+    end
+    it "本名欄のフリガナはkana_last_nameが未入力だと登録できない" do
+      user = FactoryBot.build(:user)
+      user.kana_last_name = ""
+      user.valid?
+      expect(user.errors.full_messages).to include("Kana last name can't be blank")
+    end
+    it "本名欄のフリガナはkana_first_nameが未入力だと登録できない" do
+      user = FactoryBot.build(:user)
+      user.kana_first_name = ""
+      user.valid?
+      expect(user.errors.full_messages).to include("Kana first name can't be blank")
+    end
+    it "本名欄のフリガナ（last_name）は全角カナで入力されないと登録できない" do
+      user = FactoryBot.build(:user)
+      user.last_name = "aaa"
+      user.valid?
+      expect(user.errors.full_messages).to include("Last name is invalid")
+    end
+    it "本名欄のフリガナ（first_name）は全角カナで入力されないと登録できない" do
+      user = FactoryBot.build(:user)
+      user.first_name = "aaa"
+      user.valid?
+      expect(user.errors.full_messages).to include("First name is invalid")
     end
     it "生年月日が未入力だと登録できない" do
+      user = FactoryBot.build(:user)
+      user.birth = ""
+      user.valid?
+      expect(user.errors.full_messages).to include("Birth can't be blank")
     end
   end
 
