@@ -6,12 +6,19 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   
-  validates :nickname, presence: true
-  validates :last_name, presence: true, format: { with: NAME }
-  validates :first_name, presence: true, format: { with: NAME }
-  validates :kana_last_name, presence: true, format: { with: KATAKANA }
-  validates :kana_first_name, presence: true, format: { with: KATAKANA }
-  validates :birth, presence: true
-  validates_format_of :password, with: PASSWORD
+  with_options presence: true do
 
+    validates :nickname
+    validates :birth
+    validates :password, format: { with: PASSWORD }
+
+    with_options format: { with: NAME } do
+      validates :last_name
+      validates :first_name
+    end
+    with_options format: { with: KATAKANA } do
+      validates :kana_last_name
+      validates :kana_first_name
+    end
+  end
 end
