@@ -16,4 +16,6 @@ class Item < ApplicationRecord
     validates :shipping_day_id
     validates :price
   end
+
+  has_one_attached :image
 end
