@@ -28,7 +28,7 @@
 | category_id     | integer    | null: false                    |
 | condition_id    | integer    | null: false                    |
 | shipping_id     | integer    | null: false                    |
-| area_id         | integer    | null: false                    |
+| pref_id         | integer    | null: false                    |
 | shipping_day_id | integer    | null: false                    |
 | price           | integer    | null: false                    |
 | user            | references | null: false, foreign_key: true |
