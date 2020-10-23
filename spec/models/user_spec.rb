@@ -7,20 +7,17 @@ RSpec.describe User, type: :model do
 
   describe 'ユーザー新規登録' do
     it "ユーザー情報がきちんと入力されていれば登録できる" do
-    user = FactoryBot.build(:user)
-    expect(user).to be_valid
+    expect(@user).to be_valid
     end
     it "nicknameが未入力だと登録できない" do
-      user = FactoryBot.build(:user)
-      user.nickname = ""
-      user.valid?
-      expect(user.errors.full_messages).to include("Nickname can't be blank")
+      @user.nickname = ""
+      @user.valid?
+      expect(@user.errors.full_messages).to include("Nickname can't be blank")
     end
     it "emailが未入力だと登録できない" do
-      user = FactoryBot.build(:user)
-      user.email = ""
-      user.valid?
-      expect(user.errors.full_messages).to include("Email can't be blank")
+      @user.email = ""
+      @user.valid?
+      expect(@user.errors.full_messages).to include("Email can't be blank")
     end
     it "emailは重複登録できない" do
       @user.save
@@ -30,91 +27,77 @@ RSpec.describe User, type: :model do
       expect(another_user.errors.full_messages).to include("Email has already been taken")
     end
     it "emailには@が含まれていなければ登録できない" do
-      user = FactoryBot.build(:user)
-      user.email = "aaa.gmail.com"
-      user.valid?
-      expect(user.errors.full_messages).to include("Email is invalid")
+      @user.email = "aaa.gmail.com"
+      @user.valid?
+      expect(@user.errors.full_messages).to include("Email is invalid")
     end
     it "passwordが未入力だと登録できない" do
-      user = FactoryBot.build(:user)
-      user.password = ""
-      user.valid?
-      expect(user.errors.full_messages).to include("Password can't be blank")
+      @user.password = ""
+      @user.valid?
+      expect(@user.errors.full_messages).to include("Password can't be blank")
     end
     it "passwordが半角英数字混合でないと登録できない" do
-      user = FactoryBot.build(:user)
-      user.password = "aaaaaa"
-      user.valid?
-      expect(user.errors.full_messages).to include("Password is invalid")
+      @user.password = "aaaaaa"
+      @user.valid?
+      expect(@user.errors.full_messages).to include("Password is invalid")
     end
     it "passwordは確認用含め2回入力されていないと登録できない" do
-      user = FactoryBot.build(:user)
-      user.password_confirmation = ""
-      user.valid?
-      expect(user.errors.full_messages).to include("Password confirmation doesn't match Password")
+      @user.password_confirmation = ""
+      @user.valid?
+      expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
     end
     it "確認用含め2回入力されたパスワードは値が一致しなければならない" do
-      user = FactoryBot.build(:user)
-      user.password_confirmation = "bbb222"
-      user.valid?
-      expect(user.errors.full_messages).to include("Password confirmation doesn't match Password")
+      @user.password_confirmation = "bbb222"
+      @user.valid?
+      expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
     end
   end
 
   describe '本人情報確認' do
     it "本名欄はlast_nameが未入力だと登録できない" do
-      user = FactoryBot.build(:user)
-      user.last_name = ""
-      user.valid?
-      expect(user.errors.full_messages).to include("Last name can't be blank")
+      @user.last_name = ""
+      @user.valid?
+      expect(@user.errors.full_messages).to include("Last name can't be blank")
     end
     it "本名欄はfirst_nameが未入力だと登録できない" do
-      user = FactoryBot.build(:user)
-      user.first_name = ""
-      user.valid?
-      expect(user.errors.full_messages).to include("First name can't be blank")
+      @user.first_name = ""
+      @user.valid?
+      expect(@user.errors.full_messages).to include("First name can't be blank")
     end
     it "本名欄はlast_nameが漢字、全角かな/カナで入力されていないと登録できない" do
-      user = FactoryBot.build(:user)
-      user.last_name = "aa11"
-      user.valid?
-      expect(user.errors.full_messages).to include("Last name is invalid")
+      @user.last_name = "aa11"
+      @user.valid?
+      expect(@user.errors.full_messages).to include("Last name is invalid")
     end
     it "本名欄はfirst_nameが漢字、全角かな/カナで入力されていないと登録できない" do
-      user = FactoryBot.build(:user)
-      user.first_name = "aa11"
-      user.valid?
-      expect(user.errors.full_messages).to include("First name is invalid")
+      @user.first_name = "aa11"
+      @user.valid?
+      expect(@user.errors.full_messages).to include("First name is invalid")
     end
     it "本名欄のフリガナはkana_last_nameが未入力だと登録できない" do
-      user = FactoryBot.build(:user)
-      user.kana_last_name = ""
-      user.valid?
-      expect(user.errors.full_messages).to include("Kana last name can't be blank")
+      @user.kana_last_name = ""
+      @user.valid?
+      expect(@user.errors.full_messages).to include("Kana last name can't be blank")
     end
     it "本名欄のフリガナはkana_first_nameが未入力だと登録できない" do
-      user = FactoryBot.build(:user)
-      user.kana_first_name = ""
-      user.valid?
-      expect(user.errors.full_messages).to include("Kana first name can't be blank")
+      @user.kana_first_name = ""
+      @user.valid?
+      expect(@user.errors.full_messages).to include("Kana first name can't be blank")
     end
     it "本名欄のフリガナ（last_name）は全角カナで入力されないと登録できない" do
-      user = FactoryBot.build(:user)
-      user.last_name = "aaa"
-      user.valid?
-      expect(user.errors.full_messages).to include("Last name is invalid")
+      @user.last_name = "aaa"
+      @user.valid?
+      expect(@user.errors.full_messages).to include("Last name is invalid")
     end
     it "本名欄のフリガナ（first_name）は全角カナで入力されないと登録できない" do
-      user = FactoryBot.build(:user)
-      user.first_name = "aaa"
-      user.valid?
-      expect(user.errors.full_messages).to include("First name is invalid")
+      @user.first_name = "aaa"
+      @user.valid?
+      expect(@user.errors.full_messages).to include("First name is invalid")
     end
     it "生年月日が未入力だと登録できない" do
-      user = FactoryBot.build(:user)
-      user.birth = ""
-      user.valid?
-      expect(user.errors.full_messages).to include("Birth can't be blank")
+      @user.birth = ""
+      @user.valid?
+      expect(@user.errors.full_messages).to include("Birth can't be blank")
     end
   end
 
