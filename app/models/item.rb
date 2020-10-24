@@ -3,8 +3,8 @@ class Item < ApplicationRecord
     belongs_to_active_hash :category
     belongs_to_active_hash :condition
     belongs_to_active_hash :pref
-    belongs_to_active_hash :shipping_day
     belongs_to_active_hash :shipping
+    belongs_to_active_hash :shipping_day
 
   with_options presence: true do
     validates :title
@@ -18,4 +18,5 @@ class Item < ApplicationRecord
   end
 
   has_one_attached :image
+
 end
