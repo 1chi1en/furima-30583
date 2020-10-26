@@ -10,12 +10,12 @@ class Item < ApplicationRecord
     validates :image
     validates :title
     validates :detail
-    validates :category_id
-    validates :condition_id
-    validates :shipping_id
-    validates :pref_id
-    validates :shipping_day_id
-    validates :price, numericality: { only_integer: true,greater_than: 9999999, less_than: 300 }
+    validates :category_id, inclusion: { in: 2..11 }
+    validates :condition_id, inclusion: { in: 2..7 }
+    validates :shipping_id, inclusion: { in: 2..3 }
+    validates :pref_id, inclusion: { in: 2..48 }
+    validates :shipping_day_id, inclusion: { in: 2..4 }
+    validates :price, numericality: { only_integer: true, greater_than: 300, less_than: 9999999 }
     end
 
   has_one_attached :image
