@@ -50,6 +50,16 @@ RSpec.describe Item, type: :model do
       @item.valid?
       expect(@item.errors.full_messages).to include("Shipping day is not included in the list")
     end
+    it "販売価格が空だと出品できない" do
+      @item.price = ""
+      @item.valid?
+      expect(@item.errors.full_messages).to include("Price can't be blank")
+    end
+    it "販売価格が全角数字だと出品できない" do
+      @item.price = "１０００"
+      @item.valid?
+      expect(@item.errors.full_messages).to include("Price is not a number")
+    end
     it "販売価格が300円以下だと出品できない" do
       @item.price = 200
       @item.valid?
