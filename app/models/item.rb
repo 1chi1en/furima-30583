@@ -7,6 +7,7 @@ class Item < ApplicationRecord
     belongs_to_active_hash :shipping_day
 
   with_options presence: true do
+    validates :image
     validates :title
     validates :detail
     validates :category_id
@@ -14,8 +15,8 @@ class Item < ApplicationRecord
     validates :shipping_id
     validates :pref_id
     validates :shipping_day_id
-    validates :price
-  end
+    validates :price, numericality: { only_integer: true,greater_than: 9999999, less_than: 300 }
+    end
 
   has_one_attached :image
 
