@@ -15,7 +15,7 @@ class Item < ApplicationRecord
     validates :shipping_id, inclusion: { in: 2..3 }
     validates :pref_id, inclusion: { in: 2..48 }
     validates :shipping_day_id, inclusion: { in: 2..4 }
-    validates :price, numericality: { only_integer: true, greater_than: 300, less_than: 9999999 }
+    validates :price, numericality: { only_integer: true, greater_than: 299, less_than: 10000000 }
     end
 
   has_one_attached :image
