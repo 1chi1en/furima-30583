@@ -1,4 +1,4 @@
-#フォームオブジェクト用
+#フォームオブジェクト
 class Buyinfo
   include ActiveModel::Model
     attr_accessor :token, :post_code, :town, :address, :residence_name, :phone 
@@ -15,6 +15,6 @@ class Buyinfo
   def save
     buyers = Buyer.create(post_code: post_code, town: town, address: address, residence_name: residence_name, phone: phone)
   end
-  
+
 end
 
