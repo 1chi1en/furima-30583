@@ -11,12 +11,12 @@ class Buyinfo
     PHONE = /\A\d{10,11}\z/.freeze #ハイフンなし半角数字10桁ot11桁
 
     with_options presence: true do
-      #validates :token
+      validates :token
       validates :post_code, format: { with: POST }
       validates :town, format: { with: KANA }
       validates :address
       validates :phone, format: { with: PHONE }
-      validates :pref_id, inclusion: { in: 2..48 }
+      validates :pref_id, numericality: { other_than: 1 }
     end
 
   def save

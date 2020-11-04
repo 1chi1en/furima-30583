@@ -9,9 +9,14 @@ class PurchasesController < ApplicationController
   end
 
   def create
-    binding.pry
     @buyinfo = Buyinfo.new(buy_params)
     if @buyinfo.valid?
+       Payjp.api_key = "sk_test_66649dcc9ad7c7049b947e9f"
+       Payjp::Charge.create(
+         amount: @item.price,
+         card: buy_params[:token],
+         currency: 'jpy'
+       )
        @buyinfo.save
        redirect_to root_path
     else
@@ -28,8 +33,6 @@ class PurchasesController < ApplicationController
       :phone, :pref_id, :item_id
     ).merge(user_id: current_user.id, token: params[:token])
   end
-
-
 
   def find
     @item = Item.find(params[:item_id])
