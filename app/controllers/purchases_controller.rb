@@ -6,9 +6,6 @@ class PurchasesController < ApplicationController
     @buyinfo = Buyinfo.new
   end
 
-  def new
-  end
-
   def create
     @buyinfo = Buyinfo.new(buy_params)
     if @buyinfo.valid?

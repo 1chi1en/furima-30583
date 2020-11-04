@@ -5,7 +5,7 @@ FactoryBot.define do
     pref_id {10}
     town {"座頭市"}
     address {"どこかの番地"}
-    residence_name {""}
+    residence_name {"から揚げ王国"}
     phone {"09012345678"}
   end
 end

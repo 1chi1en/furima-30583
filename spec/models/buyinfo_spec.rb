@@ -5,11 +5,11 @@ RSpec.describe Buyinfo, type: :model do
     @buyinfo = FactoryBot.build(:buyinfo)
   end
   describe '商品購入' do
-    it "全ての必須情報がきちんと入力されていれば購入できる(建物名は未入力)" do
+    it "全ての必須情報がきちんと入力されていれば購入できる" do
       expect(@buyinfo).to be_valid
     end
-    it "全ての必須情報がきちんと入力されていれば購入できる(建物名を入力した場合)" do
-      @buyinfo.residence_name = "から揚げ王国"
+    it "建物名は入力しなくても登録できる" do
+      @buyinfo.residence_name = ""
       expect(@buyinfo).to be_valid
     end
   end 
