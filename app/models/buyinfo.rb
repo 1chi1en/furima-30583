@@ -1,7 +1,10 @@
 #フォームオブジェクト
 class Buyinfo
   include ActiveModel::Model
-    attr_accessor :token, :post_code, :pref_id, :town, :address, :residence_name, :phone, :item_id, :user_id
+    attr_accessor :token, :post_code, 
+                  :pref_id, :town, :address, 
+                  :residence_name, :phone, 
+                  :item_id, :user_id
 
     POST = /\A\d{3}[-]\d{4}\z/.freeze #郵便番号
     KANA = /\A[ぁ-んァ-ン一-龥]/.freeze #かなカナ漢字
@@ -13,6 +16,7 @@ class Buyinfo
       validates :town, format: { with: KANA }
       validates :address
       validates :phone, format: { with: PHONE }
+      validates :pref_id, inclusion: { in: 2..48 }
     end
 
   def save

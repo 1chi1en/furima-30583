@@ -2,10 +2,10 @@ class PurchasesController < ApplicationController
   before_action :find, only: [:index, :create]
 
   def index
+    @buyinfo = Buyinfo.new
   end
 
   def new
-    @buyinfo = Buyinfo.new
   end
 
   def create
