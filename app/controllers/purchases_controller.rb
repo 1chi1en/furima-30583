@@ -1,14 +1,9 @@
 class PurchasesController < ApplicationController
+  before_action :authenticate_user!
   before_action :find, only: [:index, :create]
 
   def index
     @buyinfo = Buyinfo.new
-    if current_user.id == @item.user_id
-      redirect_to root_path
-    end
-    unless user_signed_in?
-      redirect_to user_session_path
-    end
   end
 
   def new

@@ -5,7 +5,11 @@ RSpec.describe Buyinfo, type: :model do
     @buyinfo = FactoryBot.build(:buyinfo)
   end
   describe '商品購入' do
-    it "全ての必須情報がきちんと入力されていれば購入できる(建物名は未入力でも良い)" do
+    it "全ての必須情報がきちんと入力されていれば購入できる(建物名は未入力)" do
+      expect(@buyinfo).to be_valid
+    end
+    it "全ての必須情報がきちんと入力されていれば購入できる(建物名を入力した場合)" do
+      @buyinfo.residence_name = "から揚げ王国"
       expect(@buyinfo).to be_valid
     end
   end 
@@ -23,6 +27,11 @@ RSpec.describe Buyinfo, type: :model do
       @buyinfo.post_code = ""
       @buyinfo.valid?
       expect(@buyinfo.errors.full_messages).to include("Post code can't be blank")
+    end
+    it "post_code（郵便番号）はハイフンがなければならない" do
+      @buyinfo.post_code = "1234567"
+      @buyinfo.valid?
+      expect(@buyinfo.errors.full_messages).to include("Post code is invalid")
     end
     it "post_code（郵便番号）に半角数字以外があるとNG" do
       @buyinfo.post_code = "あ亜アA"
@@ -61,6 +70,16 @@ RSpec.describe Buyinfo, type: :model do
     end
     it "phone（電話番号）に数字以外の文字が入っているとNG" do
       @buyinfo.phone = "AAAA"
+      @buyinfo.valid?
+      expect(@buyinfo.errors.full_messages).to include("Phone is invalid")
+    end
+    it "phone（電話番号）にハイフンは不要である" do
+      @buyinfo.phone = "090-1234-5678"
+      @buyinfo.valid?
+      expect(@buyinfo.errors.full_messages).to include("Phone is invalid")
+    end
+    it "phone（電話番号）は10桁か11桁でなければならない" do
+      @buyinfo.phone = "0901234"
       @buyinfo.valid?
       expect(@buyinfo.errors.full_messages).to include("Phone is invalid")
     end
