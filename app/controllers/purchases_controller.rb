@@ -27,10 +27,10 @@ class PurchasesController < ApplicationController
 
   def buy_params
     params.permit(
-      :post_code, :town, 
+      :token, :post_code, :town, 
       :address, :residence_name, 
       :phone, :pref_id, :item_id
-    ).merge(user_id: current_user.id, token: params[:token])
+    ).merge(user_id: current_user.id)
   end
 
   def find

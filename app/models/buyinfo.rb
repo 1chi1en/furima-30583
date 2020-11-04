@@ -24,7 +24,7 @@ class Buyinfo
       item_id: item_id, 
       user_id: user_id
     )
-    buyers = Buyer.create(
+    Buyer.create(
       post_code: post_code, 
       pref_id: pref_id, 
       town: town, 
