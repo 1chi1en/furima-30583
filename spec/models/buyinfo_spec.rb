@@ -4,11 +4,21 @@ RSpec.describe Buyinfo, type: :model do
   before do
     @buyinfo = FactoryBot.build(:buyinfo)
   end
-
-  describe '商品購入-配送先入力' do
+  describe '商品購入' do
     it "全ての必須情報がきちんと入力されていれば購入できる(建物名は未入力でも良い)" do
       expect(@buyinfo).to be_valid
     end
+  end 
+
+  describe '商品購入-クレジット決済' do
+    it "tokenが空では保存できない" do
+      @buyinfo.token = nil
+      @buyinfo.valid?
+      expect(@buyinfo.errors.full_messages).to include("Token can't be blank")
+    end
+  end 
+
+  describe '商品購入-配送先入力' do
     it "post_code（郵便番号）が未入力だと購入できない" do
       @buyinfo.post_code = ""
       @buyinfo.valid?
@@ -22,7 +32,7 @@ RSpec.describe Buyinfo, type: :model do
     it "pref_id(配送先地域)を選択しなければ購入できない（id:1が選ばれているとNG）" do
       @buyinfo.pref_id = 1
       @buyinfo.valid?
-      expect(@buyinfo.errors.full_messages).to include("Pref is not included in the list")
+      expect(@buyinfo.errors.full_messages).to include("Pref must be other than 1")
     end
     it "town（市町区村）が未入力だと購入できない" do
       @buyinfo.town = ""

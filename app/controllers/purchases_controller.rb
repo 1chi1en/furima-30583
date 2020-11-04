@@ -3,6 +3,12 @@ class PurchasesController < ApplicationController
 
   def index
     @buyinfo = Buyinfo.new
+    if current_user.id == @item.user_id
+      redirect_to root_path
+    end
+    unless user_signed_in?
+      redirect_to user_session_path
+    end
   end
 
   def new
@@ -11,12 +17,7 @@ class PurchasesController < ApplicationController
   def create
     @buyinfo = Buyinfo.new(buy_params)
     if @buyinfo.valid?
-       Payjp.api_key = "sk_test_66649dcc9ad7c7049b947e9f"
-       Payjp::Charge.create(
-         amount: @item.price,
-         card: buy_params[:token],
-         currency: 'jpy'
-       )
+       paying
        @buyinfo.save
        redirect_to root_path
     else
@@ -36,6 +37,15 @@ class PurchasesController < ApplicationController
 
   def find
     @item = Item.find(params[:item_id])
+  end
+
+  def paying
+    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
+    Payjp::Charge.create(
+      amount: @item.price,
+      card: buy_params[:token],
+      currency: 'jpy'
+    )
   end
 
 end

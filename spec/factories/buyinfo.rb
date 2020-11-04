@@ -1,5 +1,6 @@
 FactoryBot.define do
   factory :buyinfo do
+    token {"tok_abcdefghijk00000000000000000"}
     post_code {"890-1234"}
     pref_id {10}
     town {"座頭市"}
