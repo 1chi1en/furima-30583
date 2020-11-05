@@ -127,24 +127,23 @@
     <ul class='item-lists'>
 
       <%# itemモデルの中身を表示させている %>
-    <% @items.each do |items| %>
+    <% @items.each do |item| %>
       <li class='list'>
-        <%= link_to item_path(items.id) do %>
+        <%= link_to item_path(item.id) do %>
         <div class='item-img-content'>
-          <%= image_tag items.image, class: "item-img" if items.image.attached? %>
-          <%# 商品が売れていればsold outを表示しましょう %>
-          <div class='sold-out'>
-            <span>Sold Out!!</span>
-          </div>
-          <%# //商品が売れていればsold outを表示しましょう %>
-
+          <%= image_tag item.image, class: "item-img" if item.image.attached? %>
+            <% if item.purchase != nil %> <%# 商品が売れていればSOLD OUTが表示される %>
+                <div class='sold-out'>
+                 <span>Sold Out!!</span>
+              </div>
+            <% end %>
         </div>
         <div class='item-info'>
           <h3 class='item-name'>
-            <%= items.title %>
+            <%= item.title %>
           </h3>
           <div class='item-price'>
-            <span><%= items.price %>円<br>(税込み)</span>
+            <span><%= item.price %>円<br>(税込み)</span>
             <div class='star-btn'>
               <%= image_tag "star.png", class:"star-icon" %>
               <span class='star-count'>0</span>
